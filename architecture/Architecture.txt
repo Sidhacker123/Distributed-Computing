@@ -1,0 +1,18 @@
+Distributed GPU Matrix Compute Architecture:
+
+1. Input Driver (CLI Args or API Gateway)
+   └── Accepts Matrix Size and Node Count
+
+2. MPI Controller Node
+   └── Broadcasts A and B matrices via ring-style CUDA-aware MPI
+
+3. CUDA-Enabled Worker Nodes
+   └── Perform tiled matrix multiplication using shared memory
+   └── Each node handles a partition of the full result matrix
+
+4. Profiling + Monitoring Layer
+   └── Measures latency using cudaEvent
+   └── Outputs node-wise compute performance
+
+5. Output Aggregator
+   └── Gathers partial results and reconstructs final matrix (on rank 0)
