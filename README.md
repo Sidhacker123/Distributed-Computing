@@ -39,6 +39,3 @@ Traditional single-GPU setups hit performance bottlenecks for large-scale linear
 - Enabled scalable GPU workload orchestration for future deep learning infrastructure
 - Paved the way for cloud-native distributed deep learning setups
 
-## 📜 License
-
-MIT
