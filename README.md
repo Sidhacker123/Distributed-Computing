@@ -1,12 +1,12 @@
 # Distributed GPU Matrix Computation Using CUDA-aware MPI
 
-🚀 This project demonstrates a multi-node GPU matrix multiplication framework leveraging **CUDA-aware MPI** and custom data partitioning strategies across NVIDIA GPUs in a heterogeneous cluster.
+ This project demonstrates a multi-node GPU matrix multiplication framework leveraging **CUDA-aware MPI** and custom data partitioning strategies across NVIDIA GPUs in a heterogeneous cluster.
 
-## 📌 Problem Statement
+##  Problem Statement
 
 Traditional single-GPU setups hit performance bottlenecks for large-scale linear algebra tasks. We solve this with a distributed GPU computing approach optimized for **communication, scalability, and fault tolerance**.
 
-## ⚙️ Technologies Used
+##  Technologies Used
 
 - NVIDIA CUDA
 - OpenMPI (CUDA-aware build)
@@ -14,11 +14,11 @@ Traditional single-GPU setups hit performance bottlenecks for large-scale linear
 - Jupyter Notebooks for visualization
 - NVIDIA Nsight Systems (for profiling)
 
-## 🔄 Architecture
+##  Architecture
 
 ![System Diagram](architecture/system_diagram.png)
 
-## 🧪 Benchmark Results
+##  Benchmark Results
 
 - **Test Cluster**: 16-node heterogeneous GPU cluster (4x V100, 6x A100, 6x 3090)
 - **Matrix Size**: 10000x10000
@@ -27,13 +27,13 @@ Traditional single-GPU setups hit performance bottlenecks for large-scale linear
 
 ![Scaling Plot](notebooks/scaling_plot.png)
 
-## 📁 Key Files
+##  Key Files
 
 - `cuda_mpi_matrix_mult.cu`: CUDA + MPI source code
 - `partitioning_strategy.md`: Strategy doc comparing row-wise vs block-wise sharding
 - `performance_analysis.ipynb`: Jupyter notebook analyzing time-to-solution and GPU load
 
-## ✅ Outcomes
+##  Outcomes
 
 - Reduced training and compute time by 38%
 - Enabled scalable GPU workload orchestration for future deep learning infrastructure
