@@ -1,4 +1,37 @@
-Distributed GPU Matrix Compute Architecture:
+📥 1. Input Driver Layer (CLI or API)
+    ├── Triggered via `main.py` (Dask) or `mpirun` (MPI)
+    ├── Accepts matrix dimensions, number of GPUs, and execution flags
+    └── Directs flow to: single-GPU, Dask, or standalone MPI modes
+
+🚦 2. Control & Scheduling Layer
+    ├── Python/Dask Path:
+    │   └── `main.py` invokes `utils.start_cluster()` (Dask-CUDA)
+    │       └── Sets up LocalCUDACluster with N workers
+    └── MPI Path:
+        └── Rank 0 node scatters A, B using CUDA-aware MPI (e.g. ring broadcast)
+
+🎛️ 3. Execution Layer
+    ├── Python-Dask Logic (in `utils.py`):
+    │   ├── Uses `cupy.RawKernel` to launch `matrixMultiplyShared` on each GPU
+    │   ├── Handles row-wise or block-wise partitioning of matrices
+    │   └── Optionally uses `cupy.matmul` for fallback
+    └── MPI Standalone Kernel (in `cuda_mpi_matrix_mult.cu`):
+        ├── Tiled matrix multiplication with shared memory
+        └── Uses full C++/CUDA kernel logic + MPI sync
+
+📈 4. Profiling + Monitoring Layer
+    ├── Single GPU: Uses `cudaEvent` for kernel timing inside `run_matrix_multiply_kernel`
+    ├── Multi-GPU (Dask): Wraps compute in wall-clock profiler (Python)
+    └── MPI: Uses `cudaEvent` and MPI barrier for timing sync
+
+📤 5. Output Aggregation Layer
+    ├── Dask: Gathers partial blocks or rows from futures into final NumPy array
+    └── MPI: Rank 0 collects result from all ranks and assembles matrix
+
+📊 6. Benchmark + Reporting Layer
+    └── `benchmarks.py`: Runs tests from 1–N GPUs, records speedup, saves CSV
+
+Distributed GPU Matrix Compute Architecture standalone MPI :
 
 1. Input Driver (CLI Args or API Gateway)
    └── Accepts Matrix Size and Node Count
