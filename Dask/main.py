@@ -1,7 +1,7 @@
 import argparse
 import numpy as np
-from project import utils
-from project.benchmarking import benchmarks
+from Dask import utils
+from Dask.benchmarking import benchmarks
 
 def main():
     parser = argparse.ArgumentParser(description="GPU Matrix Computation Project")
