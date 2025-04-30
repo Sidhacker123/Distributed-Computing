@@ -1,6 +1,6 @@
 import time
 import numpy as np
-from project import utils
+from Dask import utils
 
 def run_matrix_benchmark(max_gpus=None, M=2048, N=2048, K=2048, partition='row'):
     """
